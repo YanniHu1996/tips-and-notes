@@ -16,3 +16,8 @@ log structure
 ## What components that the Wal depends on?
 
 ## What are features based on the Wal
+
+
+
+## Inspiration
+When considering how a database system recovers, one question that may arise is: what point does PostgreSQL start to recover from? The answer is the REDO point.
