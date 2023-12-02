@@ -1,16 +1,18 @@
 
 
-## What is wal?
+## What is the Wal?
 
 mechanism
 log structure
 
-## Why introduce to wal/ what problems that waldeals with
+## Why introduce the Wal/ What problems does the Wal deal with?
 
 ## What are core concepts
 
-## What is the structure of a wal log
+## What is the structure of a Wal log
 
 ## What dependent components?
 
-## What components that the wal depends on ?
+## What components that the Wal depends on?
+
+## What are features based on the Wal
