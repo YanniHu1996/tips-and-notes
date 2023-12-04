@@ -97,3 +97,9 @@ spec:
 ---
 
 ```
+
+
+```sh 
+k -n minio wait deployment/minio --for=condition=Available=true
+
+```
