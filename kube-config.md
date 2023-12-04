@@ -14,6 +14,7 @@ KUBECONFIG=<path_to_config_file> tsh kube login --proxy=<host>:<port> --auth=<au
 ```sh
 # By tsh
 tsh kube ls 
+KUBECONFIG=~/.kube/config  k config  get-contexts  -oname
 
 # By kubectl
 kubectl config get-clusters
