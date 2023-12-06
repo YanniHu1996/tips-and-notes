@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: test
+  namespace: default
+spec:
+  storage:
+    size: 1Gi
+    storageClass: csi-hostpath-sc
+  backup:
+    volumeSnapshot:
+      className: csi-hostpath-snapclass
+      online: true
+      onlineConfiguration:
+        waitForArchive: true
+        immediateCheckpoint: true
