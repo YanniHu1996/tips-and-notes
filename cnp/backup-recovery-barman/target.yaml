@@ -1,12 +1,14 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: test-from-vs
+  name: test-restore
 spec:
+  instances: 2
+
+  storage:
+    size: 1Gi
+
   bootstrap:
     recovery:
-      volumeSnapshots:
-        storage:
-          name: test-backup
-          kind: VolumeSnapshot
-          apiGroup: snapshot.storage.k8s.io
+      backup:
+        name: test-backup

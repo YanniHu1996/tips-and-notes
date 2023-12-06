@@ -11,7 +11,7 @@ data:
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cluster1
+  name: test
 spec:
   instances: 2
   primaryUpdateStrategy: unsupervised
