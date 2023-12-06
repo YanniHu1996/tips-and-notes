@@ -1,5 +1,5 @@
 use k8s_openapi::api::core::v1::Pod;
-use kube::api::{Api, ListParams, ResourceExt,AttachParams};
+use kube::api::{Api, ListParams, AttachParams};
 
 use kube::client::Client;
 
@@ -16,6 +16,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // List pods in the configured namespace
     let lp = ListParams::default().labels("cnpg.io/cluster=test,cnpg.io/instanceRole=primary");
     for p in pods.list(&lp).await? {
+
         pods.exec(
             "example",
             vec!["sh", "-c", "for i in $(seq 1 3); do date; done"],
