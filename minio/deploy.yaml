@@ -1,6 +1,3 @@
-
-```yaml
-
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -96,10 +93,3 @@ spec:
 
 ---
 
-```
-
-
-```sh 
-k -n minio wait deployment/minio --for=condition=Available=true
-
-```
