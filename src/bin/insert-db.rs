@@ -12,27 +12,36 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cluster_name = "test";
 
     let client = Client::try_default().await?;
-    let pods: Api<Pod> = Api::default_namespaced(client);
+    let pod_api: Api<Pod> = Api::default_namespaced(client);
 
+    let primary_instance = get_pod(&pod_api, cluster_name).await;
+
+    let output = exec_sql(&pod_api, &primary_instance, "SELECT 1;").await;
+    println!("Output: {}", output);
+
+    Ok(())
+}
+
+async fn get_pod(pod_api: &Api<Pod>, cluster_name: &str) -> Pod {
     let lp = ListParams::default().labels(&format!(
         "{}={},{}=primary",
         LABEL_CLUSTER, cluster_name, LABEL_INSTANCE_ROLE
     ));
-    let pod_list = pods.list(&lp).await?;
-    let primary_instance = pod_list.items.first().unwrap();
+    let pod_list = pod_api.list(&lp).await.unwrap();
+    pod_list.items.first().unwrap().to_owned()
+}
 
-    let attached: AttachedProcess = pods
+async fn exec_sql(pod_api: &Api<Pod>, pod: &Pod, sql: &str) -> String {
+    let attached = pod_api
         .exec(
-            primary_instance.name_any().as_str(),
-            vec!["psql", "-c", "select 1;"],
+            pod.name_any().as_str(),
+            vec!["psql", "-c", sql],
             &AttachParams::default().stderr(false),
         )
-        .await?;
+        .await
+        .unwrap();
 
-    let output = get_output(attached).await;
-    println!("{output}");
-
-    Ok(())
+    get_output(attached).await
 }
 
 async fn get_output(mut attached: AttachedProcess) -> String {
