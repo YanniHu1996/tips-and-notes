@@ -1,29 +1,47 @@
+use futures_util::StreamExt;
 use k8s_openapi::api::core::v1::Pod;
-use kube::api::{Api, ListParams, AttachParams};
-
+use kube::api::{Api, AttachParams, AttachedProcess, ListParams};
 use kube::client::Client;
+use kube::ResourceExt;
+
+const LABEL_CLUSTER: &str = "cnpg.io/cluster";
+const LABEL_INSTANCE_ROLE: &str = "cnpg.io/instanceRole";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Read the environment to find config for kube client.
-    // Note that this tries an in-cluster configuration first,
-    // then falls back on a kubeconfig file.
-    let client = Client::try_default().await?;
+    let cluster_name = "test";
 
-    // Interact with pods in the configured namespace with the typed interface from k8s-openapi
+    let client = Client::try_default().await?;
     let pods: Api<Pod> = Api::default_namespaced(client);
 
-    // List pods in the configured namespace
-    let lp = ListParams::default().labels("cnpg.io/cluster=test,cnpg.io/instanceRole=primary");
-    for p in pods.list(&lp).await? {
+    let lp = ListParams::default().labels(&format!(
+        "{}={},{}=primary",
+        LABEL_CLUSTER, cluster_name, LABEL_INSTANCE_ROLE
+    ));
+    let pod_list = pods.list(&lp).await?;
+    let primary_instance = pod_list.items.first().unwrap();
 
-        pods.exec(
-            "example",
-            vec!["sh", "-c", "for i in $(seq 1 3); do date; done"],
+    let attached: AttachedProcess = pods
+        .exec(
+            primary_instance.name_any().as_str(),
+            vec!["psql", "-c", "select 1;"],
             &AttachParams::default().stderr(false),
         )
         .await?;
-    }
+
+    let output = get_output(attached).await;
+    println!("{output}");
 
     Ok(())
+}
+
+async fn get_output(mut attached: AttachedProcess) -> String {
+    let stdout = tokio_util::io::ReaderStream::new(attached.stdout().unwrap());
+    let out = stdout
+        .filter_map(|r| async { r.ok().and_then(|v| String::from_utf8(v.to_vec()).ok()) })
+        .collect::<Vec<_>>()
+        .await
+        .join("");
+    attached.join().await.unwrap();
+    out
 }
