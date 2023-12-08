@@ -23,6 +23,14 @@ kubectl config get-clusters
 
 ## Switch context and namespace
 
+
+### By Config 
+```sh
+kubectl config use-context <context>
+kubectl config set-context --current --namesoace <namespace>
+```
+
+### By Kubie
 ```sh
 kubie ctx -f <path_config_file> <context>
 
