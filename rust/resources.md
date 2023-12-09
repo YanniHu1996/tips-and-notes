@@ -7,4 +7,7 @@
 
 
 [Cargo Book](https://doc.rust-lang.org/stable/cargo/)
+
+
+[Rust 语言圣经](https://course.rs/about-book.html)
  
