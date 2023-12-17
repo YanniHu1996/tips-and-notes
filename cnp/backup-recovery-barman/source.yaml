@@ -4,7 +4,7 @@ metadata:
   name: s3-cred
 type: Opaque
 data:
-  ID: bWluaW8K
+  ID: bWluaW8=
   KEY: bWluaW8xMjM=
 
 ---
