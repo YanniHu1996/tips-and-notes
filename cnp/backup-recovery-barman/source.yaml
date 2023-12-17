@@ -5,7 +5,7 @@ metadata:
 type: Opaque
 data:
   ID: bWluaW8K
-  KEY: bWluaW8xMjMK
+  KEY: bWluaW8xMjM=
 
 ---
 apiVersion: postgresql.cnpg.io/v1
