@@ -14,5 +14,6 @@
   path: internal/cmd/manager/instance/run/lifecycle/lifecycle.go
 
 - name: upgradeInstanceManager
+  description: upgrades the instance managers of the Pod running in this cluster
   type: func
   path: controllers/cluster_upgrade.go
