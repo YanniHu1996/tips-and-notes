@@ -4,3 +4,6 @@
   path: pkg/management/postgres/webserver
 
   
+- name: ReconcilePods
+  path: controllers/cluster_controller.go
+  
