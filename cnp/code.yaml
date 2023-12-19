@@ -13,3 +13,6 @@
   type: type 
   path: internal/cmd/manager/instance/run/lifecycle/lifecycle.go
 
+- name: upgradeInstanceManager
+  type: func
+  path: controllers/cluster_upgrade.go
