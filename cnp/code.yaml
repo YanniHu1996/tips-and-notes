@@ -1,9 +1,15 @@
 
 - name: webserver
+  type: package
   description: web server exposed by the instance manager
   path: pkg/management/postgres/webserver
 
   
 - name: ReconcilePods
+  type: func
   path: controllers/cluster_controller.go
-  
+
+- name: PostgresLifecycle
+  type: type 
+  path: internal/cmd/manager/instance/run/lifecycle/lifecycle.go
+
