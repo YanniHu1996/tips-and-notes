@@ -1,0 +1,6 @@
+
+- name: webserver
+  description: web server exposed by the instance manager
+  path: pkg/management/postgres/webserver
+
+  
