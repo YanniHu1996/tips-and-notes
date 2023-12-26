@@ -103,3 +103,31 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mc
+  namespace: minio
+spec:
+  volumes:
+    - name: mc
+      emptyDir: {}
+  containers:
+    - name: mc
+      image: minio/mc:RELEASE.2022-06-11T21-10-36Z
+      env:
+        - name: MC_HOST_minio
+          value: "http://minio:minio123@minio-service:9000"
+        - name: MC_URL
+          value: "https://minio-service:9000"
+        - name: HOME
+          value: "/mc"
+      volumeMounts:
+        - name: mc
+          mountPath: "/mc"
+      command:
+        - "sleep"
+        - "3600"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
