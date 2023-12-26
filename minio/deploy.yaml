@@ -1,4 +1,14 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-cred
+type: Opaque
+data:
+  ID: bWluaW8=
+  KEY: bWluaW8xMjM=
+  
+---
+apiVersion: v1
 kind: Namespace
 metadata:
   name: minio
