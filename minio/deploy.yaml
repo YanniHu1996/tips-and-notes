@@ -98,6 +98,9 @@ metadata:
   namespace: minio
 spec:
   ports:
+    - port: 9090
+      targetPort: 9090
+      protocol: TCP
     - port: 9000
       targetPort: 9000
       protocol: TCP
