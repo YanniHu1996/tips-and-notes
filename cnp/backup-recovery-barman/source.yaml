@@ -21,7 +21,7 @@ spec:
     target: primary
     barmanObjectStore:
       destinationPath: s3://backup/
-      endpointURL: http://minio-service:9000
+      endpointURL: http://minio-service.minio:9000
       s3Credentials:
         accessKeyId:
           name: s3-cred
