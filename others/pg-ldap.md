@@ -55,9 +55,11 @@ Here's a basic overview of how LDAP integration works in PostgreSQL, along with 
 - **Security:** Always consider encrypting the connection using SSL/TLS, especially if the LDAP server is remote.
 
 
+## Bind Mode
+
 In the context of LDAP authentication in PostgreSQL, "simple bind" and "search bind" refer to two different methods of binding (authenticating) a user against an LDAP server. These methods determine how PostgreSQL, acting as an LDAP client, communicates with the LDAP server to authenticate users.
 
-### Simple Bind
+#### Simple Bind
 
 In a simple bind, PostgreSQL sends the user's distinguished name (DN) and password directly to the LDAP server. The LDAP server then checks these credentials against its entries.
 
@@ -76,7 +78,7 @@ host all john 0.0.0.0/0 ldap ldapserver=ldap.example.com ldapprefix="uid=" ldaps
 
 When user `john` tries to connect, PostgreSQL will construct the DN as `uid=john,ou=users,dc=example,dc=com` and send this DN along with the provided password to the LDAP server for authentication.
 
-### Search Bind
+#### Search Bind
 
 Search bind is more complex. PostgreSQL first binds to the LDAP server using a predefined user (the bind DN) and then performs a search for the DN of the user trying to log in. After finding the DN, PostgreSQL re-binds to the LDAP server with the user's DN and password to authenticate.
 
