@@ -49,7 +49,8 @@ spec:
         - name: minio
           image: minio/minio:latest
           args: 
-            - server data 
+            - server 
+            - data 
             - --console-address :9090
           ports:
             - containerPort: 9090
