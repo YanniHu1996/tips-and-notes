@@ -78,10 +78,7 @@ spec:
               path: /minio/health/ready
               port: 9000
             initialDelaySeconds: 30
-          securityContext:
-            allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
+
           resources:
             requests:
               cpu: 100m
@@ -89,11 +86,6 @@ spec:
             limits:
               cpu: 100m
               memory: 128Mi
-
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-
 ---
 apiVersion: v1
 kind: Service
