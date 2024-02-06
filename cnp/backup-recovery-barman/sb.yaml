@@ -3,7 +3,7 @@ kind: ScheduledBackup
 metadata:
   name: scheduled-backup
 spec:
-  schedule: "1 */1 * * * *"
+  schedule: "*/30 * * * * *"
   
   target: primary
   cluster:
