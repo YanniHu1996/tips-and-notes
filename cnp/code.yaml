@@ -17,3 +17,8 @@
   description: upgrades the instance managers of the Pod running in this cluster
   type: func
   path: controllers/cluster_upgrade.go
+
+
+- name: reconcile
+  type: func
+  path: controllers/cluster_controller.go
