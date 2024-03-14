@@ -11,7 +11,7 @@ data:
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: test
+  name: test-backup
 spec:
   instances: 2
   primaryUpdateStrategy: unsupervised
@@ -20,7 +20,7 @@ spec:
   backup:
     target: primary
     barmanObjectStore:
-      destinationPath: s3://backup/
+      destinationPath: s3://cluster-test-backup/
       endpointURL: http://minio-service.minio:9000
       s3Credentials:
         accessKeyId:
