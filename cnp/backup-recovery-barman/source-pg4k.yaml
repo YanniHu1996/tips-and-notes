@@ -13,7 +13,7 @@ kind: Cluster
 metadata:
   name: test-backup
 spec:
-  instances: 2
+  instances: 3
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
 
