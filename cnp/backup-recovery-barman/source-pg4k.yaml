@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: s3-cred
+type: Opaque
+data:
+  ID: bWluaW8=
+  KEY: bWluaW8xMjM=
+
+---
+apiVersion postgresql.k8s.enterprisedb.io
+kind: Cluster
+metadata:
+  name: test-backup
+spec:
+  instances: 2
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+
+  backup:
+    target: primary
+    barmanObjectStore:
+      destinationPath: s3://cluster-test-backup/
+      endpointURL: http://minio-service.minio:9000
+      s3Credentials:
+        accessKeyId:
+          name: s3-cred
+          key: ID
+        secretAccessKey:
+          name: s3-cred
+          key: KEY
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
+        immediateCheckpoint: true
+
+  storage:
+    size: 1Gi
