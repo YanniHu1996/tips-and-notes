@@ -8,7 +8,7 @@ data:
   KEY: bWluaW8xMjM=
 
 ---
-apiVersion: postgresql.k8s.enterprisedb.io
+apiVersion: postgresql.k8s.enterprisedb.io/v1
 kind: Cluster
 metadata:
   name: test-backup
