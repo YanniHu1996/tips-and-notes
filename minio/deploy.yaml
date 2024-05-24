@@ -119,7 +119,7 @@ spec:
       emptyDir: {}
   containers:
     - name: mc
-      image: minio/mc:latest
+      image: minio/mc:RELEASE.2024-05-09T17-04-24Z.fips
       env:
         - name: MC_HOST_minio
           value: "http://minio:minio123@minio-service:9000"
