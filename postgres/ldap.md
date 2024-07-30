@@ -1,5 +1,73 @@
 LDAP (Lightweight Directory Access Protocol) integration in PostgreSQL allows you to use an LDAP server for authenticating database users. This can be particularly useful for centralized user management and maintaining consistency in user authentication across different systems.
 
+## LDAP overview
+
+### Concepts in LDAP
+
+1. **Directory**: A specialized database optimized for read access, searching, and browsing, but also supports update operations.
+2. **Entry**: An object in the directory, representing a user, group, or resource, containing attributes.
+3. **Attribute**: A named data value or set of values belonging to an entry, defining information about the entry.
+4. **Distinguished Name (DN)**: A unique name that identifies an entry in the directory.
+5. **Relative Distinguished Name (RDN)**: The part of the DN that uniquely identifies an entry within its parent container.
+6. **Schema**: Defines the rules for entry creation, including object classes and attribute types.
+7. **Object Class**: A component of the schema that defines a set of attributes an entry must/can have.
+8. **Bind**: The process of authenticating to the LDAP server.
+
+### Architecture
+
+LDAP architecture is based on a client-server model:
+
+- **LDAP Server**: Stores the directory data and responds to client requests.
+- **LDAP Client**: Connects to the LDAP server to perform operations like search, modify, add, and delete.
+
+### Operations/Behavior
+
+1. **Search**: Retrieve entries from the directory that match a specified filter.
+2. **Add**: Insert a new entry into the directory.
+3. **Delete**: Remove an entry from the directory.
+4. **Modify**: Change the attributes of an existing entry.
+5. **Bind**: Authenticate a client to the LDAP server.
+6. **Unbind**: Close the connection to the LDAP server.
+
+### Examples
+
+#### Example 1: Searching for an Entry
+
+```ldap
+// Assuming you are using an LDAP client tool or library
+// Connect to the LDAP server
+ldapsearch -x -LLL -H ldap://ldap.example.com -b "dc=example,dc=com" "(objectClass=person)" cn mail
+```
+
+This command searches for all entries of the object class `person` under the domain component `example.com`, retrieving their common name (`cn`) and email (`mail`).
+
+#### Example 2: Adding an Entry
+
+```ldap
+// Using an LDIF file to add a new entry
+dn: cn=John Doe,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+cn: John Doe
+sn: Doe
+mail: johndoe@example.com
+```
+
+This LDIF (LDAP Data Interchange Format) content represents a new entry for a person named John Doe, including his common name, surname, and email address. It would be used with an LDAP client tool capable of adding entries, such as using the `ldapadd` command.
+
+#### Example 3: Modifying an Entry
+
+```ldap
+// Using an LDIF file to modify an existing entry
+dn: cn=John Doe,ou=users,dc=example,dc=com
+changetype: modify
+replace: mail
+mail: newemail@example.com
+```
+
+This LDIF content changes John Doe's email to `newemail@example.com`. It specifies the distinguished name of the entry to modify, indicates the modification type (`replace`), and provides the new value for the `mail` attribute.
+
+## LDAP Integration in PostgreSQL
+
 Here's a basic overview of how LDAP integration works in PostgreSQL, along with an example:
 
 ### Understanding LDAP Integration in PostgreSQL
