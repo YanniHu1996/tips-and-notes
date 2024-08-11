@@ -3,8 +3,9 @@ It communicates with the consensus modules on other
 servers to ensure that every log eventually contains the
 same requests in the same order,
 
+---
 
-### List key properties of the algorithm
+#### List key properties of the algorithm
 
 the key safety property for Raft is the State Machine Safety Property
 
@@ -22,6 +23,11 @@ of the leaders for all higher-numbered terms. §5.4
 State Machine Safety: if a server has applied a log entry
 at a given index to its state machine, no other server
 will ever apply a different log entry for the same index.
+
+--- 
+
+Raft ensures that there is at most one
+leader in a given term.
 
 ### Reference 
 
