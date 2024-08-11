@@ -55,6 +55,17 @@ this state until one of three things happens:
 
 (c) a period of time goes by with no winner
 
+---
+
+Each candidate
+restarts its randomized election timeout at the start of an
+election, and it waits for that timeout to elapse before
+starting the next election; this reduces the likelihood of
+another split vote in the new election.
+
+--- 
+
+
 ### Reference 
 
 https://raft.github.io/raft.pdf
