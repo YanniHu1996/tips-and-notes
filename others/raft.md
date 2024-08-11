@@ -65,6 +65,12 @@ another split vote in the new election.
 
 --- 
 
+In Raft, the leader handles inconsistencies by forcing
+the followers’ logs to duplicate its own. This means that
+conflicting entries in follower logs will be overwritten
+with entries from the leader’s log
+
+--- 
 
 ### Reference 
 
