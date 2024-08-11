@@ -37,6 +37,12 @@ may not observe an election or even entire terms. Terms
 act as a logical clock in Raft, and they allow servers
 to detect obsolete information such as stale leaders
 
+--- 
+
+When servers start up, they begin as followers
+
+
+
 ### Reference 
 
 https://raft.github.io/raft.pdf
