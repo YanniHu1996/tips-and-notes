@@ -29,6 +29,14 @@ will ever apply a different log entry for the same index.
 Raft ensures that there is at most one
 leader in a given term.
 
+---
+
+Different servers may observe the transitions between
+terms at different times, and in some situations a server
+may not observe an election or even entire terms. Terms
+act as a logical clock in Raft, and they allow servers
+to detect obsolete information such as stale leaders
+
 ### Reference 
 
 https://raft.github.io/raft.pdf
