@@ -70,7 +70,34 @@ the followers’ logs to duplicate its own. This means that
 conflicting entries in follower logs will be overwritten
 with entries from the leader’s log
 
+To bring a follower’s log into consistency with its own,
+the leader must find the latest log entry where the two
+logs agree, delete any entries in the follower’s log after
+that point, and send the follower all of the leader’s entries
+after that point
+
+. All of these actions happen **in response
+to** the consistency check performed by AppendEntries
+RPCs. 
+
 --- 
+
+when rejecting an AppendEntries request, the follower
+7
+can include the term of the conflicting entry and the first
+index it stores for that term. 
+
+---
+
+#### Log Matching Property
+
+* If two entries in different logs have the same index
+and term, then they store the same command.
+
+* If two entries in different logs have the same index
+and term, then the logs are identical in all preceding
+entries.
+
 
 ### Reference 
 
