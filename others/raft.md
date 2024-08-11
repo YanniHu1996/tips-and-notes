@@ -41,7 +41,19 @@ to detect obsolete information such as stale leaders
 
 When servers start up, they begin as followers
 
+--- 
 
+To begin an election, a follower increments its current
+term and transitions to candidate state. It then votes for
+itself and issues RequestVote RPCs in parallel to each of
+the other servers in the cluster. A candidate continues in
+this state until one of three things happens: 
+
+(a) it wins the election, 
+
+(b) another server establishes itself as leader
+
+(c) a period of time goes by with no winner
 
 ### Reference 
 
