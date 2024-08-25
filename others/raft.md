@@ -98,6 +98,12 @@ and term, then they store the same command.
 and term, then the logs are identical in all preceding
 entries.
 
+---
+
+For the configuration change mechanism to be safe,
+there must be no point during the transition where it
+is possible for two leaders to be elected for the same
+term.
 
 ### Reference 
 
