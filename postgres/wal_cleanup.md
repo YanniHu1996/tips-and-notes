@@ -153,3 +153,69 @@ SHOW max_wal_size;
 ```
 
 By understanding these causes and monitoring the relevant metrics, you can effectively manage and mitigate WAL accumulation in PostgreSQL.
+
+
+## Under what circumstances are archive_command executed by Postgres？
+
+In PostgreSQL, the `archive_command` is executed under specific circumstances to ensure that WAL (Write-Ahead Logging) files are archived properly. The `archive_command` is part of the WAL archiving process, which is used to create backups and ensure data durability. Here are the primary circumstances under which the `archive_command` is executed:
+
+### 1. WAL File Completion
+
+- **Description**: The `archive_command` is executed when a WAL file is completed. A WAL file is considered complete when it reaches its maximum size (typically 16 MB by default).
+- **Mechanism**: When a WAL file is filled up, PostgreSQL closes the file and triggers the `archive_command` to archive the file.
+- **Effect**: The completed WAL file is copied to the archive location specified by the `archive_command`.
+
+### 2. Checkpoints
+
+- **Description**: During a checkpoint, PostgreSQL ensures that all changes up to a certain point are written to disk. If there are any incomplete WAL files at the time of the checkpoint, they are also archived.
+- **Mechanism**: Checkpoints occur periodically based on the `checkpoint_timeout` and `max_wal_size` configuration parameters.
+- **Effect**: Any WAL files that are part of the checkpoint are archived.
+
+### 3. Manual Archiving
+
+- **Description**: The `archive_command` can be triggered manually by using the `pg_switch_wal()` function, which forces PostgreSQL to switch to a new WAL file and archive the current one.
+- **Mechanism**: When `pg_switch_wal()` is called, PostgreSQL closes the current WAL file and triggers the `archive_command`.
+- **Effect**: The current WAL file is archived immediately.
+
+### Example Configuration
+
+Here is an example of how you might configure the `archive_command` in PostgreSQL:
+
+```sql
+ALTER SYSTEM SET archive_mode = 'on';
+ALTER SYSTEM SET archive_command = 'cp %p /path/to/archive/%f';
+SELECT pg_reload_conf();
+```
+
+### Explanation
+
+- **archive_mode**: Enables or disables WAL archiving. It must be set to `on` to enable archiving.
+- **archive_command**: Specifies the shell command to be executed to archive a completed WAL file. The `%p` placeholder represents the path to the WAL file, and the `%f` placeholder represents the filename.
+- **pg_reload_conf()**: Reloads the PostgreSQL configuration to apply the changes.
+
+### Monitoring WAL Archiving
+
+You can monitor the status of WAL archiving using the `pg_stat_archiver` view:
+
+```sql
+SELECT * FROM pg_stat_archiver;
+```
+
+### Example Output
+
+- **archived_count**: The number of WAL files that have been successfully archived.
+- **last_archived_wal**: The name of the last successfully archived WAL file.
+- **last_archived_time**: The timestamp of the last successful archive.
+- **failed_count**: The number of failed archive attempts.
+- **last_failed_wal**: The name of the last WAL file that failed to archive.
+- **last_failed_time**: The timestamp of the last failed archive attempt.
+
+### Summary
+
+The `archive_command` in PostgreSQL is executed under the following circumstances:
+
+1. **WAL File Completion**: When a WAL file reaches its maximum size and is closed.
+2. **Checkpoints**: During checkpoints, any incomplete WAL files are archived.
+3. **Manual Archiving**: When the `pg_switch_wal()` function is called to force a WAL file switch and archive.
+
+By configuring and monitoring the `archive_command`, you can ensure that WAL files are archived properly, which is essential for data durability and backup purposes.
