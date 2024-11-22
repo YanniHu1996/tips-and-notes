@@ -15,3 +15,9 @@ Node State: Follower, Candidate, Leader
 
 Initialization
 
+Leader Election
+
+Client request
+
+
+
