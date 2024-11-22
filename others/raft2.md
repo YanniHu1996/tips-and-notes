@@ -9,6 +9,12 @@ Node
 
 Node State: Follower, Candidate, Leader
 
+Message
+
+Index 
+
+Term
+
 
 
 ### Processes
