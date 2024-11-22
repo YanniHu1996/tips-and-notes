@@ -23,7 +23,15 @@ Initialization
 
 Leader Election
 
-Client request
+Log Replication
+
+
+## Reference 
+
+https://thesecretlivesofdata.com/raft/#overview
+
+https://raft.github.io/
+
 
 
 
