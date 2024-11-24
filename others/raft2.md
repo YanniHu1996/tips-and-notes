@@ -25,6 +25,7 @@ Leader Election
 
 Log Replication
 
+Node Change
 
 ## Reference 
 
