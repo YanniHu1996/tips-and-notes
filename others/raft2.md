@@ -15,7 +15,7 @@ Index
 
 Term
 
-
+Snapshot
 
 ### Processes
 
@@ -26,6 +26,8 @@ Leader Election
 Log Replication
 
 Node Change
+
+Make snapshot
 
 ## Reference 
 
