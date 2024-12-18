@@ -6,6 +6,8 @@ type: Opaque
 data:
   ID: bWluaW8=
   KEY: bWluaW8xMjM=
+  ACCESS_KEY_ID: bWluaW8=
+  ACCESS_KEY_KEY: bWluaW8xMjM=
   
 ---
 apiVersion: v1
