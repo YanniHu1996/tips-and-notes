@@ -89,6 +89,11 @@ index it stores for that term.
 
 ---
 
+An entry is considered **committed** if it is safe for that
+entry to be applied to state machines.
+
+---
+
 #### Log Matching Property
 
 * If two entries in different logs have the same index
