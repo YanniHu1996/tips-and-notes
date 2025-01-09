@@ -92,6 +92,10 @@ index it stores for that term.
 An entry is considered **committed** if it is safe for that
 entry to be applied to state machines.
 
+The leader decides when it is safe to apply a log entry to the state machines; such an entry is called committed. Raft guarantees that committed entries are durable
+and will eventually be executed by all of the available
+state machines.
+
 ---
 
 #### Log Matching Property
