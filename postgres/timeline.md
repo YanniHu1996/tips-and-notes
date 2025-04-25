@@ -1,4 +1,3 @@
-好的，我们来系统性地深入讲解 PostgreSQL 的时间线（Timeline）机制，并给出大量的案例来帮助理解。
 
 **1. 什么是 PostgreSQL 时间线？**
 
