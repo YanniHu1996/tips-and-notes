@@ -58,10 +58,10 @@ spec:
             - containerPort: 9090
             - containerPort: 9000
           env:
-            - name: MINIO_ACCESS_KEY
-              value: "minio"
-            - name: MINIO_SECRET_KEY
-              value: "minio123"
+            # - name: MINIO_ACCESS_KEY
+            #   value: "minio"
+            # - name: MINIO_SECRET_KEY
+            #   value: "minio123"
             - name: MINIO_ROOT_USER
               value: minio
             - name: MINIO_ROOT_PASSWORD
